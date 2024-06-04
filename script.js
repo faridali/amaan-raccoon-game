@@ -28,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function() {
         showingAmaan = !showingAmaan;
     }
 
+    // Initialize with Amaan's image
+    imageContainer.style.backgroundImage = "url('images/amaan.png')";
+
     setInterval(updateTimer, 50);
     setInterval(toggleImage, 5000);
 });
