@@ -32,7 +32,7 @@ function updateCountdown() {
 }
 
 function changeBackgroundColor() {
-    let colors = ['#FF00FF', '#00FFFF', '#FF00FF', '#FFFF00', '#FF0000', '#00FF00', '#0000FF'];
+    let colors = ['#FF00FF', '#00FFFF', '#FFFF00', '#FF0000', '#00FF00', '#0000FF', '#FF1493', '#7FFF00', '#FF4500', '#1E90FF'];
     let currentColorIndex = Math.floor(Math.random() * colors.length);
     document.body.style.backgroundColor = colors[currentColorIndex];
 }
@@ -43,5 +43,5 @@ function changeTransformationImage() {
 }
 
 setInterval(updateCountdown, 10);
-setInterval(changeBackgroundColor, 2000);
-setInterval(changeTransformationImage, 5000);
+setInterval(changeBackgroundColor, 1000);
+setInterval(changeTransformationImage, 1000);
