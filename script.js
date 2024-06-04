@@ -1,26 +1,39 @@
-const countdownDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
-const images = ["amaan.png", "raccoon.png"];
-let currentImageIndex = 0;
+const endDate = new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000);
+const img1 = 'amaan.png';
+const img2 = 'raccoon.png';
+let imgToggle = false;
 
-function updateCountdown() {
+function updateTimer() {
     const now = new Date();
-    const distance = countdownDate - now;
-    document.getElementById("days").textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById("minutes").textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("seconds").textContent = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("milliseconds").textContent = distance % 1000;
+    const diff = endDate - now;
+
+    if (diff <= 0) {
+        document.getElementById('time').innerHTML = "00:00:00.000";
+        clearInterval(timerInterval);
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    const milliseconds = diff % 1000;
+
+    document.getElementById('time').innerHTML = days + " days " + 
+        hours.toString().padStart(2, '0') + ":" + 
+        minutes.toString().padStart(2, '0') + ":" + 
+        seconds.toString().padStart(2, '0') + "." + 
+        milliseconds.toString().padStart(3, '0');
+    
+    document.getElementById('image').src = imgToggle ? img1 : img2;
+    imgToggle = !imgToggle;
 }
 
-function updateImage() {
-    document.getElementById("currentImage").src = images[currentImageIndex];
-    currentImageIndex = (currentImageIndex + 1) % images.length;
+function changeBackground() {
+    document.body.style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
 }
 
-setInterval(updateCountdown, 1);
-setInterval(updateImage, 1000);  // Update image every second
-setInterval(() => {
-    document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-}, 3000);
+setInterval(updateTimer, 1);
+setInterval(changeBackground, 3000);
 
-updateCountdown();  // Initialize the countdown when the page loads
+document.getElementById('image').src = img1;
