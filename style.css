@@ -3,7 +3,7 @@ body {
     text-align: center;
     background: #000;
     color: #fff;
-    transition: background-color 1s;
+    transition: background-color 2s;
 }
 
 .container {
