@@ -1,36 +1,47 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const timerElement = document.getElementById("timer");
-    const imageContainer = document.getElementById("image-container");
-    const daysTotal = 365;
-    const startDate = new Date('2024-06-04');
-    let showingAmaan = true;
+let countdownDate = new Date().getTime() + 365 * 24 * 60 * 60 * 1000;
 
-    function updateTimer() {
-        const currentDate = new Date();
-        const elapsedDays = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
-        const remainingTime = (startDate.getTime() + daysTotal * 24 * 60 * 60 * 1000) - currentDate.getTime();
+let transformationImages = [
+    'amaan1.jpg',
+    'amaan2.jpg',
+    'amaan3.jpg',
+    'raccoon.jpg'
+];
 
-        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-        const milliseconds = remainingTime % 1000;
+let currentImageIndex = 0;
 
-        timerElement.innerText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds, ${milliseconds} milliseconds remaining until full transformation`;
+function updateCountdown() {
+    let now = new Date().getTime();
+    let distance = countdownDate - now;
+
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    let milliseconds = Math.floor((distance % 1000) / 10);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+    document.getElementById("milliseconds").innerText = milliseconds;
+
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("timer").innerText = "Amaan is now a raccoon!";
     }
+}
 
-    function toggleImage() {
-        if (showingAmaan) {
-            imageContainer.style.backgroundImage = "url('images/raccoon.png')";
-        } else {
-            imageContainer.style.backgroundImage = "url('images/amaan.png')";
-        }
-        showingAmaan = !showingAmaan;
-    }
+function changeBackgroundColor() {
+    let colors = ['#FF00FF', '#00FFFF', '#FF00FF', '#FFFF00', '#FF0000', '#00FF00', '#0000FF'];
+    let currentColorIndex = Math.floor(Math.random() * colors.length);
+    document.body.style.backgroundColor = colors[currentColorIndex];
+}
 
-    // Initialize with Amaan's image
-    imageContainer.style.backgroundImage = "url('images/amaan.png')";
+function changeTransformationImage() {
+    currentImageIndex = (currentImageIndex + 1) % transformationImages.length;
+    document.getElementById("transformation").src = transformationImages[currentImageIndex];
+}
 
-    setInterval(updateTimer, 50);
-    setInterval(toggleImage, 5000);
-});
+setInterval(updateCountdown, 10);
+setInterval(changeBackgroundColor, 2000);
+setInterval(changeTransformationImage, 5000);
