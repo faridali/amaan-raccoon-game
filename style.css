@@ -1,21 +1,18 @@
-body {
+body, html {
+    height: 100%;
+    margin: 0;
     font-family: Arial, sans-serif;
     text-align: center;
-    background: #000;
-    color: #fff;
-    transition: background-color 1s;
+    color: white;
 }
 
-.container {
-    margin-top: 50px;
-}
-
-#timer {
-    font-size: 2em;
+.timer div {
+    font-size: 48px;
+    padding: 10px;
 }
 
 #transformation {
-    margin-top: 20px;
     width: 200px;
-    height: 200px;
+    height: auto;
+    transition: transform 1s;
 }
