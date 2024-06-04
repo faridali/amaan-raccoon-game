@@ -18,6 +18,7 @@ body {
 
 #progression {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
@@ -52,7 +53,7 @@ body {
 
 #arrow {
     font-size: 50px;
-    margin: 0 20px;
+    margin: 20px 0;
     transition: transform 1s linear;
 }
 
@@ -65,5 +66,5 @@ body {
 }
 
 .moving #arrow {
-    transform: translateX(calc(100% + 20px));
+    transform: translateY(calc(100% + 20px));
 }
