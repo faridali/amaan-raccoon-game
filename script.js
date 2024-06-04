@@ -1,10 +1,8 @@
 let countdownDate = new Date().getTime() + 365 * 24 * 60 * 60 * 1000;
 
 let transformationImages = [
-    'amaan1.jpg',
-    'amaan2.jpg',
-    'amaan3.jpg',
-    'raccoon.jpg'
+    'amaan.png',
+    'raccoon.png'
 ];
 
 let currentImageIndex = 0;
