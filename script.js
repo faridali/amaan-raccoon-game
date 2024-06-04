@@ -1,48 +1,33 @@
-let countdownDate = new Date().getTime() + 365 * 24 * 60 * 60 * 1000;
+const endTime = new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000);
+const img = document.getElementById('transformation');
+let imgToggle = false;
 
-let transformationImages = [
-    'amaan.png',
-    'raccoon.png'
-];
+function updateTimer() {
+    const now = new Date();
+    const distance = endTime - now;
 
-let currentImageIndex = 0;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const milliseconds = distance % 1000;
 
-function updateCountdown() {
-    let now = new Date().getTime();
-    let distance = countdownDate - now;
+    document.getElementById('days').textContent = `Days: ${days}`;
+    document.getElementById('hours').textContent = `Hours: ${hours}`;
+    document.getElementById('minutes').textContent = `Minutes: ${minutes}`;
+    document.getElementById('seconds').textContent = `Seconds: ${seconds}`;
+    document.getElementById('milliseconds').textContent = `Milliseconds: ${milliseconds}`;
 
-    if (distance < 0) {
-        clearInterval(countdownInterval);
-        clearInterval(backgroundInterval);
-        clearInterval(imageInterval);
-        document.getElementById("timer").innerText = "Amaan is now a raccoon!";
-        return;
-    }
+    img.src = imgToggle ? 'amaan.png' : 'raccoon.png';
+    imgToggle = !imgToggle;
 
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    let milliseconds = Math.floor((distance % 1000) / 10);
-
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = hours;
-    document.getElementById("minutes").innerText = minutes;
-    document.getElementById("seconds").innerText = seconds;
-    document.getElementById("milliseconds").innerText = milliseconds;
+    // Change background color every 3 seconds
+    document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
 }
 
-function changeBackgroundColor() {
-    let colors = ['#FF00FF', '#00FFFF', '#FFFF00', '#FF0000', '#00FF00', '#0000FF', '#FF1493', '#7FFF00', '#FF4500', '#1E90FF'];
-    let currentColorIndex = Math.floor(Math.random() * colors.length);
-    document.body.style.backgroundColor = colors[currentColorIndex];
-}
+setInterval(updateTimer, 1);
+setInterval(() => {
+    document.body.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+}, 3000);
 
-function changeTransformationImage() {
-    currentImageIndex = (currentImageIndex + 1) % transformationImages.length;
-    document.getElementById("transformation").src = transformationImages[currentImageIndex];
-}
-
-let countdownInterval = setInterval(updateCountdown, 10);
-let backgroundInterval = setInterval(changeBackgroundColor, 1000);
-let imageInterval = setInterval(changeTransformationImage, 1000);
+updateTimer();
