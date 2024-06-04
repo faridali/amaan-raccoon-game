@@ -24,47 +24,11 @@ body {
     position: relative;
 }
 
-#amaan, #raccoon {
+#image-container {
     width: 150px;
     height: 150px;
     margin: 10px;
     border-radius: 50%;
-    position: relative;
-}
-
-#amaan:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('images/amaan.png') no-repeat center center;
     background-size: cover;
-}
-
-#raccoon:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('images/raccoon.png') no-repeat center center;
-    background-size: cover;
-    opacity: 1;
-}
-
-#arrow {
-    font-size: 50px;
-    margin: 20px 0;
-    transition: transform 1s linear;
-}
-
-.halfway #raccoon:before {
-    opacity: 0.5;
-}
-
-.full #raccoon:before {
-    opacity: 1;
-}
-
-.moving #arrow {
-    transform: translateY(calc(100% + 20px));
+    background-position: center;
 }
