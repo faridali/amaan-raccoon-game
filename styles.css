@@ -18,9 +18,10 @@ body {
 
 #progression {
     display: flex;
-    justify-content: center;
     align-items: center;
+    position: relative;
     width: 100%;
+    justify-content: center;
 }
 
 #amaan, #raccoon {
@@ -50,6 +51,20 @@ body {
     opacity: 0;
 }
 
+#arrow {
+    font-size: 50px;
+    position: relative;
+    transition: transform 1s linear;
+}
+
 .halfway #raccoon:before {
     opacity: 0.5;
+}
+
+.full #raccoon:before {
+    opacity: 1;
+}
+
+.moving #arrow {
+    transform: translateX(calc(100% + 20px));
 }
