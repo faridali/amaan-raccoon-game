@@ -1,6 +1,7 @@
-let timer = 30;
+let timer = 10;
 const countdownElement = document.getElementById('timer');
 const amaan = document.getElementById('amaan');
+const raccoon = document.getElementById('raccoon');
 
 function startCountdown() {
     const countdown = setInterval(() => {
@@ -18,7 +19,9 @@ function startCountdown() {
 function resetGame() {
     amaan.style.top = '10px';
     amaan.style.left = '10px';
-    timer = 30;
+    raccoon.style.top = `${Math.random() * 350}px`;
+    raccoon.style.left = `${Math.random() * 350}px`;
+    timer = 10;
     countdownElement.textContent = timer;
     startCountdown();
 }
@@ -29,9 +32,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     amaan.addEventListener('dragstart', dragStart);
     amaan.addEventListener('dragend', dragEnd);
 
-    const maze = document.getElementById('maze');
-    maze.addEventListener('dragover', dragOver);
-    maze.addEventListener('drop', drop);
+    moveRaccoon();
 });
 
 function dragStart(event) {
@@ -66,7 +67,7 @@ function drop(event) {
 
 function checkWin() {
     const amaanRect = amaan.getBoundingClientRect();
-    const raccoonRect = document.getElementById('raccoon').getBoundingClientRect();
+    const raccoonRect = raccoon.getBoundingClientRect();
 
     if (
         amaanRect.left < raccoonRect.right &&
@@ -78,3 +79,14 @@ function checkWin() {
         resetGame();
     }
 }
+
+function moveRaccoon() {
+    setInterval(() => {
+        raccoon.style.top = `${Math.random() * 350}px`;
+        raccoon.style.left = `${Math.random() * 350}px`;
+    }, 500);
+}
+
+const maze = document.getElementById('maze');
+maze.addEventListener('dragover', dragOver);
+maze.addEventListener('drop', drop);
