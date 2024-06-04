@@ -16,17 +16,4 @@ document.addEventListener("DOMContentLoaded", function() {
         const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
         const milliseconds = remainingTime % 1000;
 
-        timerElement.innerText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds, ${milliseconds} milliseconds remaining until full transformation`;
-
-        if (elapsedDays >= daysTotal / 2) {
-            raccoonElement.classList.add('halfway');
-        }
-
-        if (elapsedDays >= daysTotal) {
-            raccoonElement.classList.add('full');
-            arrowElement.classList.add('moving');
-        }
-    }
-
-    setInterval(updateTimer, 50);
-});
+        timerElement.innerText = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds, ${milliseconds} milliseconds remaining until
