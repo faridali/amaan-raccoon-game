@@ -13,6 +13,14 @@ function updateCountdown() {
     let now = new Date().getTime();
     let distance = countdownDate - now;
 
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        clearInterval(backgroundInterval);
+        clearInterval(imageInterval);
+        document.getElementById("timer").innerText = "Amaan is now a raccoon!";
+        return;
+    }
+
     let days = Math.floor(distance / (1000 * 60 * 60 * 24));
     let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -24,15 +32,10 @@ function updateCountdown() {
     document.getElementById("minutes").innerText = minutes;
     document.getElementById("seconds").innerText = seconds;
     document.getElementById("milliseconds").innerText = milliseconds;
-
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("timer").innerText = "Amaan is now a raccoon!";
-    }
 }
 
 function changeBackgroundColor() {
-    let colors = ['#FF00FF', '#00FFFF', '#FF00FF', '#FFFF00', '#FF0000', '#00FF00', '#0000FF'];
+    let colors = ['#FF00FF', '#00FFFF', '#FFFF00', '#FF0000', '#00FF00', '#0000FF', '#FF1493', '#7FFF00', '#FF4500', '#1E90FF'];
     let currentColorIndex = Math.floor(Math.random() * colors.length);
     document.body.style.backgroundColor = colors[currentColorIndex];
 }
@@ -42,6 +45,6 @@ function changeTransformationImage() {
     document.getElementById("transformation").src = transformationImages[currentImageIndex];
 }
 
-setInterval(updateCountdown, 10);
-setInterval(changeBackgroundColor, 2000);
-setInterval(changeTransformationImage, 5000);
+let countdownInterval = setInterval(updateCountdown, 10);
+let backgroundInterval = setInterval(changeBackgroundColor, 1000);
+let imageInterval = setInterval(changeTransformationImage, 1000);
