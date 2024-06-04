@@ -1,39 +1,80 @@
-const endDate = new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000);
-const img1 = 'amaan.png';
-const img2 = 'raccoon.png';
-let imgToggle = false;
+let timer = 30;
+const countdownElement = document.getElementById('timer');
+const amaan = document.getElementById('amaan');
 
-function updateTimer() {
-    const now = new Date();
-    const diff = endDate - now;
+function startCountdown() {
+    const countdown = setInterval(() => {
+        if (timer > 0) {
+            timer--;
+            countdownElement.textContent = timer;
+        } else {
+            clearInterval(countdown);
+            alert('Time is up! Try again.');
+            resetGame();
+        }
+    }, 1000);
+}
 
-    if (diff <= 0) {
-        document.getElementById('time').innerHTML = "00:00:00.000";
-        clearInterval(timerInterval);
-        return;
+function resetGame() {
+    amaan.style.top = '10px';
+    amaan.style.left = '10px';
+    timer = 30;
+    countdownElement.textContent = timer;
+    startCountdown();
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    startCountdown();
+
+    amaan.addEventListener('dragstart', dragStart);
+    amaan.addEventListener('dragend', dragEnd);
+
+    const maze = document.getElementById('maze');
+    maze.addEventListener('dragover', dragOver);
+    maze.addEventListener('drop', drop);
+});
+
+function dragStart(event) {
+    event.dataTransfer.setData('text/plain', event.target.id);
+    setTimeout(() => {
+        event.target.classList.add('hide');
+    }, 0);
+}
+
+function dragEnd(event) {
+    event.target.classList.remove('hide');
+}
+
+function dragOver(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+    const id = event.dataTransfer.getData('text');
+    const draggableElement = document.getElementById(id);
+    const dropzone = event.target;
+
+    const x = event.clientX - dropzone.getBoundingClientRect().left - draggableElement.clientWidth / 2;
+    const y = event.clientY - dropzone.getBoundingClientRect().top - draggableElement.clientHeight / 2;
+
+    draggableElement.style.left = `${x}px`;
+    draggableElement.style.top = `${y}px`;
+
+    checkWin();
+}
+
+function checkWin() {
+    const amaanRect = amaan.getBoundingClientRect();
+    const raccoonRect = document.getElementById('raccoon').getBoundingClientRect();
+
+    if (
+        amaanRect.left < raccoonRect.right &&
+        amaanRect.right > raccoonRect.left &&
+        amaanRect.top < raccoonRect.bottom &&
+        amaanRect.bottom > raccoonRect.top
+    ) {
+        alert('You win!');
+        resetGame();
     }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    const milliseconds = diff % 1000;
-
-    document.getElementById('time').innerHTML = days + " days " + 
-        hours.toString().padStart(2, '0') + ":" + 
-        minutes.toString().padStart(2, '0') + ":" + 
-        seconds.toString().padStart(2, '0') + "." + 
-        milliseconds.toString().padStart(3, '0');
-    
-    document.getElementById('image').src = imgToggle ? img1 : img2;
-    imgToggle = !imgToggle;
 }
-
-function changeBackground() {
-    document.body.style.backgroundColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
-}
-
-setInterval(updateTimer, 1);
-setInterval(changeBackground, 3000);
-
-document.getElementById('image').src = img1;
