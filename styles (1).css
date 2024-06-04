@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.container {
+    text-align: center;
+}
+
+#timer {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#progression {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#amaan, #raccoon {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 50%;
+    position: relative;
+}
+
+#amaan:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('images/amaan.png') no-repeat center center;
+    background-size: cover;
+}
+
+#raccoon:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('images/raccoon.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0;
+}
+
+#arrow {
+    font-size: 50px;
+    margin: 0 20px;
+    transition: transform 1s linear;
+}
+
+.halfway #raccoon:before {
+    opacity: 0.5;
+}
+
+.full #raccoon:before {
+    opacity: 1;
+}
+
+.moving #arrow {
+    transform: translateX(calc(100% + 20px));
+}
